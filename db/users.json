@@ -1,0 +1,23 @@
+{
+  "ca6b0b4423": {
+    "id": "ca6b0b4423",
+    "role": "contributor",
+    "email": "jack@example.com",
+    "password": "secret",
+    "displayName": "Jack"
+  },
+  "a95ada8188": {
+    "id": "a95ada8188",
+    "role": "contributor",
+    "email": "jill@example.com",
+    "password": "birthday",
+    "displayName": "Jill"
+  },
+  "446682ad11": {
+    "email": "jazz@example.com",
+    "password": "jazz",
+    "displayName": "Jazz",
+    "id": "446682ad11",
+    "role": "contributor"
+  }
+}
