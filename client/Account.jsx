@@ -9,7 +9,9 @@ export default class Account extends React.Component {
       return <Redirect to="/"/>
     } else {
       return <div>
-        {JSON.stringify(me, null, 2)}
+        <pre>
+          {JSON.stringify(me, null, 2)}
+        </pre>
         <p>
           <button type="button" onClick={signOut}>Sign Out</button>
         </p>
