@@ -51,10 +51,20 @@ class App extends React.Component {
   }
 
   signOut() {
-    this.setState({
-      me: guest,
+    fetchJSON("/api/sign-out", {
+      method: "POST",
     })
-    this.props.history.push("/")
+    .then(dataOrError => {
+      if (dataOrError instanceof Error) {
+        alert(dataOrError.status + " " + dataOrError.message)
+      } else {
+        alert("You've signed out succefully!")
+        this.setState({
+          me: guest,
+        })
+        this.props.history.push("/")
+      }
+    })
   }
 
   render() {

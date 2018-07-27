@@ -112,10 +112,11 @@ app.post("/api/sign-up",
     })
   })
 
-app.get("/api/sign-out",
+app.post("/api/sign-out",
   (req, res) => {
     req.logout()
-    res.redirect("/")
+    res.status(200)
+    res.send({me: guest})
   })
 
 app.get("*",
