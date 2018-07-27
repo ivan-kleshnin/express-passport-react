@@ -1,6 +1,6 @@
 let R = require("@paqmind/ramda")
 
-export class ErrorX extends Error {
+class ErrorX extends Error {
   constructor(data) {
     // Pass remaining arguments (including vendor specific ones) to parent constructor
     super(data.message)
@@ -21,7 +21,7 @@ export class ErrorX extends Error {
   }
 }
 
-export function fetchJSON(url, options) {
+function fetchJSON(url, options) {
   options = R.mergeDeep(options, {
     credentials: "same-origin",
     headers: {
@@ -45,3 +45,16 @@ export function fetchJSON(url, options) {
         })
     })
 }
+
+function findByEmail(email, users) {
+  return R.find(user => user.email == email, R.values(users))
+}
+
+function findByCredentials(email, password, users) {
+  return R.find(user => user.email == email && user.password == password, R.values(users))
+}
+
+exports.ErrorX = ErrorX
+exports.fetchJSON = fetchJSON
+exports.findByEmail = findByEmail
+exports.findByCredentials = findByCredentials

@@ -1,9 +1,11 @@
 let generate = require("nanoid/generate")
 let R = require("@paqmind/ramda")
 
-let makeId = () => generate("0123456789abcdef", 10)
+function makeId() {
+  return generate("0123456789abcdef", 10)
+}
 
-exports.makeUser = function (userFragment) {
+function makeUser(userFragment) {
   // TODO validate
   return R.pipe(
     R.merge({
@@ -16,9 +18,11 @@ exports.makeUser = function (userFragment) {
   )(userFragment)
 }
 
-let guest = {
+let guest = makeUser({
   role: "guest",
   displayName: "Anonymous",
-}
+})
 
+exports.makeId = makeId
+exports.makeUser = makeUser
 exports.guest = guest
