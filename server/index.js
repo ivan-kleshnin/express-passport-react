@@ -57,9 +57,8 @@ app.use(CookieParser())
 app.use(CookieSession({
   name: "session",
   secret: "_preambula_",
-  // Cookie Options
+  // Cookie options
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days,
-  secure: false,  // todo investigate later
   httpOnly: true,
   signed: true,
 }))
@@ -77,6 +76,7 @@ let unless = (paths, middleware) => {
   }
 }
 
+// TODO validation
 app.post("/api/sign-in", (req, res, next) => {
   console.log("@ signIn")
   Passport.authenticate("local", (err, user, info) => {
@@ -93,6 +93,7 @@ app.post("/api/sign-in", (req, res, next) => {
   })(req, res, next)
 })
 
+// TODO validation
 app.post("/api/sign-up",
   (req, res, next) => {
     console.log("@ signUp")
@@ -106,7 +107,8 @@ app.post("/api/sign-up",
       return res.send({message: "Duplicate email"})
     }
     let users = R.merge(db.users, {[user.id]: user})
-    FS.writeFile("./db/users.json", JSON.stringify(users, null, 2), "utf-8", (err, data) => {
+    let json = JSON.stringify(users, null, 2)
+    FS.writeFile("./db/users.json", json, "utf-8", (err, data) => {
       if (err) next(err)
       return res.send(user)
     })
@@ -122,6 +124,7 @@ app.post("/api/sign-out",
 app.get("*",
   unless([/^\/public/, /^\/favicon/, /^\/api/], (req, res, next) => {
     console.log("@ app endpoint")
+    res.status(200)
     res.send(renderLayout({me: req.user}))
   }))
 
@@ -141,4 +144,4 @@ app.use((err, req, res, next) => {
   res.send(HTTP.STATUS_CODES[500])
 })
 
-app.listen(3000)
+app.listen(8080)
