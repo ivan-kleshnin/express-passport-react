@@ -1,3 +1,7 @@
-input:invalid {
-  outline: 1px solid #f00;
+body {
+  padding: 2rem;
 }
+
+/*input:invalid {
+  outline: 1px solid #f00;
+}*/

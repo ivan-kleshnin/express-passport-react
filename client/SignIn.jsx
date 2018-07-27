@@ -46,6 +46,7 @@ export default class SignIn extends React.Component {
     return <form>
       <div>
         <label>Email</label>
+        {" "}
         <input name="email" type="email"
                value={inputs.email}
                onChange={(event) => this.changeEmail(event.target.value)}
@@ -54,6 +55,7 @@ export default class SignIn extends React.Component {
       </div>
       <div>
         <label>Password</label>
+        {" "}
         <input name="password" type="password"
                value={inputs.password}
                onChange={(event) => this.changePassword(event.target.value)}
