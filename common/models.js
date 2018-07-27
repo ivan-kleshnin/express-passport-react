@@ -4,15 +4,21 @@ let R = require("@paqmind/ramda")
 let makeId = () => generate("0123456789abcdef", 10)
 
 exports.makeUser = function (userFragment) {
+  // TODO validate
   return R.pipe(
-    R.pick(["email", "password", "displayName"]), // keep allowed properties
-    R.mergeFlipped({
+    R.merge({
       id: makeId(),
       role: "contributor",
-    }), // override properties
+    }),
+    R.toPairs,        // Sort object keys
+    R.sortBy(R.head), // to simplify JSON analysis
+    R.fromPairs,      // (project specifics)
   )(userFragment)
 }
 
-let guest = {role: "guest", displayName: "Anonymous"}
+let guest = {
+  role: "guest",
+  displayName: "Anonymous",
+}
 
 exports.guest = guest

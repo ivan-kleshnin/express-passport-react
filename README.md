@@ -14,4 +14,4 @@ $ npm start            # terminal 1
 $ npm run webpackWatch # terminal 2
 ```
 
-Open `http://localhost:8080` in the browser.
+Open `http://localhost:8080/` in the browser.

@@ -5,3 +5,4 @@
 /public/*
 !/public/styles.css
 npm-debug.log*
+/ignore/

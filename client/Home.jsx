@@ -1,6 +1,8 @@
 import React from "react"
-import SignIn from "./SignIn"
-import SignUp from "./SignUp"
+import SignInLocal from "./SignInLocal"
+import SignUpLocal from "./SignUpLocal"
+import SignInGitHub from "./SignInGitHub"
+import SignUpGitHub from "./SignUpGitHub"
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -24,20 +26,22 @@ export default class Home extends React.Component {
   }
 
   render() {
-    let {signIn, signUp} = this.props
+    let {signInLocal, signUpLocal, signInGitHub, signUpGitHub} = this.props
     let {display} = this.state
 
     return <div>
       {
         display == "sign-in"
           ? <div>
-              <SignIn signIn={signIn}/>
+              <SignInLocal signIn={signInLocal}/>
+              <SignInGitHub/>
               <p>
                 Don't have an account yet? <button type="button" onClick={() => this.showSignUp()}>Sign Up</button>
               </p>
             </div>
           : <div>
-              <SignUp signUp={signUp}/>
+              <SignUpLocal signUp={signUpLocal}/>
+              <SignUpGitHub/>
               <p>
                 Already have an account? <button type="button" onClick={() => this.showSignIn()}>Sign In</button>
               </p>

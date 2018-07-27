@@ -4,20 +4,23 @@
     "role": "contributor",
     "email": "jack@example.com",
     "password": "secret",
-    "displayName": "Jack"
+    "displayName": "Jack",
+    "provider": "local"
   },
   "a95ada8188": {
     "id": "a95ada8188",
     "role": "contributor",
     "email": "jill@example.com",
     "password": "birthday",
-    "displayName": "Jill"
+    "displayName": "Jill",
+    "provider": "local"
   },
   "446682ad11": {
     "email": "jazz@example.com",
     "password": "jazz",
     "displayName": "Jazz",
     "id": "446682ad11",
-    "role": "contributor"
+    "role": "contributor",
+    "provider": "local"
   }
 }

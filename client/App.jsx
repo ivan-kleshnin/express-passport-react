@@ -16,8 +16,8 @@ class App extends React.Component {
     }
   }
 
-  signIn(form) {
-    fetchJSON("/api/sign-in", {
+  signInLocal(form) {
+    fetchJSON("/auth/local/sign-in", {
       method: "POST",
       body: form,
     })
@@ -33,8 +33,8 @@ class App extends React.Component {
     })
   }
 
-  signUp(form) {
-    fetchJSON("/api/sign-up", {
+  signUpLocal(form) {
+    fetchJSON("/auth/local/sign-up", {
       method: "POST",
       body: form,
     })
@@ -51,7 +51,7 @@ class App extends React.Component {
   }
 
   signOut() {
-    fetchJSON("/api/sign-out", {
+    fetchJSON("/auth/sign-out", {
       method: "POST",
     })
     .then(dataOrError => {
@@ -87,8 +87,9 @@ class App extends React.Component {
       </header>
       <section>
         <Switch>
-          <Route path="/" exact render={() => <Home signIn={(user) => this.signIn(user)}
-                                                    signUp={(user) => this.signUp(user)}/>}/>
+          <Route render={() => <Home signInLocal={(user) => this.signInLocal(user)}
+                                     signUpLocal={(user) => this.signUpLocal(user)}/>}
+                 path="/" exact/>
           <Route path="/about" render={() => <About/>}/>
           <Route path="/account" render={() => <Account me={me}
                                                         signOut={() => this.signOut()}/>}/>

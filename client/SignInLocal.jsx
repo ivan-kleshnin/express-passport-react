@@ -1,9 +1,7 @@
 import * as R from "@paqmind/ramda"
 import React from "react"
 
-// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email
-// -- input:invalid does not work in this case (works on that page!) – why?
-export default class SignIn extends React.Component {
+export default class SignInLocal extends React.Component {
   constructor(props) {
     super(props)
 
