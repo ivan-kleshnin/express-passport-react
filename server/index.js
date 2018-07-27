@@ -56,7 +56,6 @@ Passport.use(new GitHubStrategy({
         provider: "github",
         role: "contributor",
       })
-      console.log("-- generated user:", user)
       db.users[user.id] = user
       let json = JSON.stringify(db.users, null, 2)
       FS.writeFile("./db/users.json", json, "utf-8", (err) => {
@@ -161,10 +160,6 @@ app.get("/auth/github", Passport.authenticate("github"))
 app.get("/auth/github/callback", (req, res, next) => {
   Passport.authenticate("github", (err, user, info) => {
     console.log("@ [github] callback")
-    console.log("req.session:", req.session)
-    console.log("req.user:", req.user)
-    console.log("-- user:", user)
-    console.log("-- info:", info)
     if (err) return next(err)
     // if (!user) { -- this case is impossible (I guess)
     //   res.status(401)
