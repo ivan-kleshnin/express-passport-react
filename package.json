@@ -23,7 +23,7 @@
     "express-session": "^1.11.3",
     "nanoid": "^1.1.0",
     "nodemon": "^1.18.3",
-    "passport": "^0.2.2",
+    "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "ramda": "^0.25.0",
     "react": "^16.4.1",
