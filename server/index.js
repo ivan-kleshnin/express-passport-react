@@ -10,6 +10,7 @@ let {Strategy: LocalStrategy} = require("passport-local")
 let R = require("@paqmind/ramda")
 let {guest, makeUser} = require("../common/models")
 let db = require("../db")
+let {renderLayout} = require("./templates")
 
 function findByEmail(email, users) {
   return R.find(user => user.email == email, R.values(users))
@@ -119,10 +120,8 @@ app.get("/api/sign-out",
 
 app.get("*",
   unless([/^\/public/, /^\/favicon/, /^\/api/], (req, res, next) => {
-    FS.readFile("./server/layout.html", "utf-8", (err, data) => {
-      if (err) next(err)
-      res.send(data)
-    })
+    console.log("@ app endpoint")
+    res.send(renderLayout({me: req.user}))
   }))
 
 // Static handler
