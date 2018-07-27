@@ -46,6 +46,9 @@ Passport.deserializeUser((id, next) => {
 
 let app = Express()
 
+// Static handler
+app.use("/public", Express.static(Path.resolve(__dirname, "../public")))
+
 app.use(BodyParser.urlencoded({
   extended: true
 }))
@@ -58,7 +61,7 @@ app.use(CookieSession({
   name: "session",
   secret: "_preambula_",
   // Cookie options
-  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days,
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   httpOnly: true,
   signed: true,
 }))
@@ -128,8 +131,11 @@ app.get("*",
     res.send(renderLayout({me: req.user}))
   }))
 
-// Static handler
-app.use("/public", Express.static(Path.resolve(__dirname, "../public")))
+app.get("*", (req, res, next) => {
+  console.log("@ app endpoint", req.url)
+  res.status(200)
+  res.send(renderLayout({me: req.user}))
+})
 
 // 404 handler
 app.use((req, res, next) => {
