@@ -23,6 +23,7 @@ export class ErrorX extends Error {
 
 export function fetchJSON(url, options) {
   options = R.mergeDeep(options, {
+    credentials: "same-origin",
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
