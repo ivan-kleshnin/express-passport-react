@@ -33,10 +33,10 @@ class App extends React.Component {
     })
   }
 
-  signUp(user) {
+  signUp(form) {
     fetchJSON("/api/sign-up", {
       method: "POST",
-      body: this.state.inputs,
+      body: form,
     })
     .then(dataOrError => {
       if (dataOrError instanceof Error) {
