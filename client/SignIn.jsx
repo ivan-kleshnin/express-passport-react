@@ -1,6 +1,5 @@
 import * as R from "@paqmind/ramda"
 import React from "react"
-import {fetchJSON} from "../common/helpers"
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email
 // -- input:invalid does not work in this case (works on that page!) – why?
@@ -38,18 +37,8 @@ export default class SignIn extends React.Component {
   }
 
   signIn() {
-    fetchJSON("/api/sign-in", {
-      method: "POST",
-      body: this.state.inputs,
-    })
-    .then(dataOrError => {
-      if (dataOrError instanceof Error) {
-        alert(dataOrError.status + " " + dataOrError.message)
-      } else {
-        alert("You've signed in succefully!")
-        this.props.signIn(dataOrError)
-      }
-    })
+    // TODO validate then
+    this.props.signIn(this.state.inputs)
   }
 
   render() {

@@ -1,5 +1,6 @@
 import React from "react"
 import {Link, Route, Switch, withRouter} from "react-router-dom"
+import {fetchJSON} from "../common/helpers"
 import {guest} from "../common/models"
 import Home from "./Home"
 import About from "./About"
@@ -11,19 +12,41 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      me: guest,
+      me: window.me || guest,
     }
   }
 
-  signIn(user) {
-    this.setState({
-      me: user,
+  signIn(form) {
+    fetchJSON("/api/sign-in", {
+      method: "POST",
+      body: form,
+    })
+    .then(dataOrError => {
+      if (dataOrError instanceof Error) {
+        alert(dataOrError.status + " " + dataOrError.message)
+      } else {
+        alert("You've signed in succefully!")
+        this.setState({
+          me: dataOrError,
+        })
+      }
     })
   }
 
   signUp(user) {
-    this.setState({
-      me: user,
+    fetchJSON("/api/sign-up", {
+      method: "POST",
+      body: this.state.inputs,
+    })
+    .then(dataOrError => {
+      if (dataOrError instanceof Error) {
+        alert(dataOrError.status + " " + dataOrError.message)
+      } else {
+        alert("You've signed up succefully!")
+        this.setState({
+          me: dataOrError,
+        })
+      }
     })
   }
 
