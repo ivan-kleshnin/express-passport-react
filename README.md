@@ -4,8 +4,8 @@ A sandbox/starter to try different auth techniques.
 
 ### Setup
 
-1. Clone repo (e.g. `~/Sandboxes/passport-express` folder)
-2. Run `$ npm install` in that folder
+1. Clone repo
+2. `$ npm install`
 
 ### Run
 
