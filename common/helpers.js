@@ -37,7 +37,7 @@ function fetchJSON(url, options) {
           if (resp.ok) {
             return body
           } else {
-            return new ErrorX({status: resp.status, message: body.message})
+            return new ErrorX({status: resp.status, ...body})
           }
         })
         .catch(_ => {

@@ -24,6 +24,9 @@ class App extends React.Component {
     .then(dataOrError => {
       if (dataOrError instanceof Error) {
         alert(dataOrError.status + " " + dataOrError.message)
+        if (dataOrError.errors) {
+          console.warn(dataOrError.errors)
+        }
       } else {
         alert("You've signed in succefully!")
         this.setState({
@@ -42,6 +45,9 @@ class App extends React.Component {
     .then(dataOrError => {
       if (dataOrError instanceof Error) {
         alert(dataOrError.status + " " + dataOrError.message)
+        if (dataOrError.errors) {
+          console.warn(dataOrError.errors)
+        }
       } else {
         alert("You've signed up succefully!")
         this.setState({
