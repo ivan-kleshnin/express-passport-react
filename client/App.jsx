@@ -29,6 +29,7 @@ class App extends React.Component {
         this.setState({
           me: dataOrError,
         })
+        this.props.history.push("/account")
       }
     })
   }
