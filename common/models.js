@@ -1,12 +1,23 @@
 let generate = require("nanoid/generate")
 let R = require("@paqmind/ramda")
 
+// TODO TypeScript
+/*
+interface User {
+  id: string,
+  role: string,
+  email: string,
+  password: string,
+  displayName: string,
+  provider: string,
+}
+*/
+
 function makeId() {
   return generate("0123456789abcdef", 10)
 }
 
 function makeUser(userFragment) {
-  // TODO validate
   return R.pipe(
     R.merge({
       id: makeId(),

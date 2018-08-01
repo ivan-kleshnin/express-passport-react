@@ -6,7 +6,9 @@ let {Strategy: LocalStrategy} = require("passport-local")
 let {Strategy: GitHubStrategy} = require("passport-github")
 let {findByEmail, findByCredentials} = require("../common/helpers")
 let {guest, makeUser} = require("../common/models")
+let {validateLocalSignUpForm, validateLocalSignInForm} = require("../common/validators")
 let db = require("../db")
+let {validateWith} = require("./validation")
 
 Passport.use(new LocalStrategy({
     usernameField: "email",
@@ -71,50 +73,55 @@ let router = Router({
 })
 
 // Local ---
-// TODO validation
-router.post("/auth/local/sign-in", (req, res, next) => {
-  console.log("@ [local] signIn")
-  Passport.authenticate("local", (err, user, info) => {
-    if (err) return next(err)
-    if (!user) {
-      res.status(401)
-      return res.send({message: "Wrong credentials"})
-    }
-    req.logIn(user, (err) => {
+router.post("/auth/local/sign-in",
+  validateWith(validateLocalSignInForm),
+  (req, res, next) => {
+    console.log("@ [local] signIn")
+    Passport.authenticate("local", (err, user, info) => {
       if (err) return next(err)
-      res.status(200)
-      return res.send(user)
-    })
-  })(req, res, next)
-})
+      if (!user) {
+        res.status(401)
+        return res.json({message: "Wrong credentials"})
+      }
+      req.logIn(user, (err) => {
+        if (err) return next(err)
+        res.status(200)
+        return res.json(user)
+      })
+    })(req, res, next)
+  }
+)
 
 // TODO validation
-router.post("/auth/local/sign-up", (req, res, next) => {
-  console.log("@ [local] signUp")
-  let user = makeUser({
-    displayName: req.body.displayName, // Important: pick fields
-    email: req.body.email,             // one by one here
-    password: req.body.password,       // to avoid injections
-    provider: "local",
-    role: "contributor",
-  })
-  if (db.users[user.id]) {
-    res.status(409)
-    return res.json({message: "Duplicate id"})
+router.post("/auth/local/sign-up",
+  validateWith(validateLocalSignUpForm),
+  (req, res, next) => {
+    console.log("@ [local] signUp")
+    let user = makeUser({
+      displayName: req.body.displayName, // Important: pick fields
+      email: req.body.email,             // one by one here
+      password: req.body.password,       // to avoid injections
+      provider: "local",
+      role: "contributor",
+    })
+    if (db.users[user.id]) {
+      res.status(409)
+      return res.json({message: "Duplicate id"})
+    }
+    if (findByEmail(user.email, db.users)) {
+      res.status(409)
+      return res.json({message: "Duplicate email"})
+    }
+    // TODO duplicate by `displayName`?! or add unique `username` ?!
+    db.users[user.id] = user
+    let json = JSON.stringify(db.users, null, 2)
+    FS.writeFile("./db/users.json", json, "utf-8", (err) => {
+      if (err) next(err)
+      res.status(200)
+      res.json(user)
+    })
   }
-  if (findByEmail(user.email, db.users)) {
-    res.status(409)
-    return res.json({message: "Duplicate email"})
-  }
-  // TODO duplicate by `displayName`?! or add unique `username` ?!
-  db.users[user.id] = user
-  let json = JSON.stringify(db.users, null, 2)
-  FS.writeFile("./db/users.json", json, "utf-8", (err) => {
-    if (err) next(err)
-    res.status(200)
-    res.json(user)
-  })
-})
+)
 
 router.post("/auth/sign-out", (req, res) => {
   console.log("@ [local] signOut")

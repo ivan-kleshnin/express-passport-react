@@ -3,7 +3,7 @@
     "id": "ca6b0b4423",
     "role": "contributor",
     "email": "jack@example.com",
-    "password": "secret",
+    "password": "Secret",
     "displayName": "Jack",
     "provider": "local"
   },
@@ -11,13 +11,13 @@
     "id": "a95ada8188",
     "role": "contributor",
     "email": "jill@example.com",
-    "password": "birthday",
+    "password": "Birthday",
     "displayName": "Jill",
     "provider": "local"
   },
   "446682ad11": {
     "email": "jazz@example.com",
-    "password": "jazz",
+    "password": "Jazz",
     "displayName": "Jazz",
     "id": "446682ad11",
     "role": "contributor",
