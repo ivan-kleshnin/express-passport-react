@@ -100,11 +100,11 @@ router.post("/auth/local/sign-up", (req, res, next) => {
   })
   if (db.users[user.id]) {
     res.status(409)
-    return res.send({message: "Duplicate id"})
+    return res.json({message: "Duplicate id"})
   }
   if (findByEmail(user.email, db.users)) {
     res.status(409)
-    return res.send({message: "Duplicate email"})
+    return res.json({message: "Duplicate email"})
   }
   // TODO duplicate by `displayName`?! or add unique `username` ?!
   db.users[user.id] = user
@@ -112,7 +112,7 @@ router.post("/auth/local/sign-up", (req, res, next) => {
   FS.writeFile("./db/users.json", json, "utf-8", (err) => {
     if (err) next(err)
     res.status(200)
-    res.send(user)
+    res.json(user)
   })
 })
 
@@ -120,7 +120,7 @@ router.post("/auth/sign-out", (req, res) => {
   console.log("@ [local] signOut")
   req.logout()
   res.status(200)
-  res.send({me: guest})
+  res.json({me: guest})
 })
 
 // GitHub ---
@@ -132,7 +132,7 @@ router.get("/auth/github/callback", (req, res, next) => {
     if (err) return next(err)
     // if (!user) { -- this case is impossible (I guess)
     //   res.status(401)
-    //   return res.send({message: "Wrong credentials"})
+    //   return res.json({message: "Wrong credentials"})
     // }
     req.logIn(user, (err) => {
       res.redirect("/account")

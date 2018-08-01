@@ -47,14 +47,14 @@ app.get("*", (req, res, next) => {
 // 404 handler
 app.use((req, res, next) => {
   res.status(404)
-  res.send({message: HTTP.STATUS_CODES[404]})
+  res.json({message: HTTP.STATUS_CODES[404]})
 })
 
 // Error handler
 app.use((err, req, res, next) => {
   console.error(err) // Log 5xx errors
   res.status(500)
-  res.send({message: HTTP.STATUS_CODES[500]})
+  res.json({message: HTTP.STATUS_CODES[500]})
 })
 
 app.listen(8080)
